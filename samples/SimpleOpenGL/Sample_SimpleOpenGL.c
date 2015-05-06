@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <GL/glut.h>
+#include "glui/glutwrapper/glut.h"
 
 /* assimp include files. These three are usually needed. */
 #include <assimp/cimport.h>

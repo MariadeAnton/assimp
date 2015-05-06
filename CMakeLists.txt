@@ -1,3 +1,7 @@
+IF(BIICODE)
+   INCLUDE("biicode.cmake")
+   RETURN()
+ENDIF()
 cmake_minimum_required( VERSION 2.8 )
 PROJECT( Assimp )
 

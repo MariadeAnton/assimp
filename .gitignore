@@ -7,6 +7,9 @@ build
 *.ncb
 *.vcproj
 
+# biicode
+bii/
+
 # Output
 bin/
 lib/
