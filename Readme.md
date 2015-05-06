@@ -1,6 +1,8 @@
 Open Asset Import Library (assimp) 
 ========
 
+This is a modification of the Assimp library to enable the Boost build with bii.
+
 Open Asset Import Library is a library to load various 3d file formats into a shared, in-memory format. It supports more than __40 file formats__ for import and a growing selection of file formats for export.
 
 APIs are provided for C and C++. There are various bindings to other languages (C#, Java, Python, Delphi, D). Assimp also runs on Android and iOS.
