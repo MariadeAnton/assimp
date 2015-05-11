@@ -79,7 +79,8 @@ void GetPostProcessingStepInstanceList(std::vector< BaseProcess* >& out);
 // Exporter worker function prototypes. Should not be necessary to #ifndef them, it's just a prototype
 // do not use const, because some exporter need to convert the scene temporary
 void ExportSceneCollada(const char*,IOSystem*, const aiScene*, const ExportProperties*);
-void ExportSceneXFile(const char*,IOSystem*, const aiScene*, const ExportProperties*); 
+void ExportSceneXFile(const char*,IOSystem*, const aiScene*, const ExportProperties*);
+void ExportSceneStep(const char*,IOSystem*, const aiScene*, const ExportProperties*);
 void ExportSceneObj(const char*,IOSystem*, const aiScene*, const ExportProperties*);
 void ExportSceneSTL(const char*,IOSystem*, const aiScene*, const ExportProperties*);
 void ExportSceneSTLBinary(const char*,IOSystem*, const aiScene*, const ExportProperties*);
@@ -100,6 +101,10 @@ Exporter::ExportFormatEntry gExporters[] =
 #ifndef ASSIMP_BUILD_NO_XFILE_EXPORTER
 	Exporter::ExportFormatEntry( "x", "X Files", "x", &ExportSceneXFile,
 		aiProcess_MakeLeftHanded | aiProcess_FlipWindingOrder | aiProcess_FlipUVs),
+#endif
+
+#ifndef ASSIMP_BUILD_NO_STEP_EXPORTER
+	Exporter::ExportFormatEntry( "stp", "Step Files", "stp", &ExportSceneStep, 0),
 #endif
 
 #ifndef ASSIMP_BUILD_NO_OBJ_EXPORTER
@@ -513,34 +518,30 @@ ExportProperties::ExportProperties(const ExportProperties &other)
 
 // ------------------------------------------------------------------------------------------------
 // Set a configuration property
-void ExportProperties :: SetPropertyInteger(const char* szName, int iValue, 
-	bool* bWasExisting /*= NULL*/)
+bool ExportProperties :: SetPropertyInteger(const char* szName, int iValue)
 {
-	SetGenericProperty<int>(mIntProperties, szName,iValue,bWasExisting);
+	return SetGenericProperty<int>(mIntProperties, szName,iValue);
 }
 
 // ------------------------------------------------------------------------------------------------
 // Set a configuration property
-void ExportProperties :: SetPropertyFloat(const char* szName, float iValue, 
-	bool* bWasExisting /*= NULL*/)
+bool ExportProperties :: SetPropertyFloat(const char* szName, float iValue)
 {
-	SetGenericProperty<float>(mFloatProperties, szName,iValue,bWasExisting);
+	return SetGenericProperty<float>(mFloatProperties, szName,iValue);
 }
 
 // ------------------------------------------------------------------------------------------------
 // Set a configuration property
-void ExportProperties :: SetPropertyString(const char* szName, const std::string& value, 
-	bool* bWasExisting /*= NULL*/)
+bool ExportProperties :: SetPropertyString(const char* szName, const std::string& value)
 {
-	SetGenericProperty<std::string>(mStringProperties, szName,value,bWasExisting);
+	return SetGenericProperty<std::string>(mStringProperties, szName,value);
 }
 
 // ------------------------------------------------------------------------------------------------
 // Set a configuration property
-void ExportProperties :: SetPropertyMatrix(const char* szName, const aiMatrix4x4& value, 
-	bool* bWasExisting /*= NULL*/)
+bool ExportProperties :: SetPropertyMatrix(const char* szName, const aiMatrix4x4& value)
 {
-	SetGenericProperty<aiMatrix4x4>(mMatrixProperties, szName,value,bWasExisting);
+	return SetGenericProperty<aiMatrix4x4>(mMatrixProperties, szName,value);
 }
 
 // ------------------------------------------------------------------------------------------------
